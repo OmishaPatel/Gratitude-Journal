@@ -1,0 +1,84 @@
+.settings {
+  display: flex;
+  font-family: "Roboto", sans-serif;
+}
+.settingsWrapper {
+  flex: 9;
+  padding: 1rem;
+}
+.settingsTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.settingsUpdate {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: lightcoral;
+}
+.settingsDelete {
+  color: red;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+}
+.settingsPicture {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+.settingsPicture > img {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+.settingsProfileIcon {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: lightcoral;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.6rem;
+  cursor: pointer;
+}
+.settingsForm > label {
+  font-size: 1rem;
+  margin-top: 1.4rem;
+}
+.settingsForm > input {
+  color: gray;
+  margin: 0.8rem 0;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid lightgray;
+}
+.settingsSubmit {
+  width: 150px;
+  align-self: center;
+  border: none;
+  border-radius: 0.5rem;
+  color: black;
+  background-color: lightcoral;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.dataButton {
+  width: 150px;
+  border: none;
+  border-radius: 0.5rem;
+  color: black;
+  background-color: rgb(227, 231, 173);
+  padding: 0.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+}

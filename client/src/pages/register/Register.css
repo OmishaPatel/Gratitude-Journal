@@ -1,0 +1,52 @@
+.register {
+  height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    url("../../components/images/login3.jpg") no-repeat center/cover;
+  background-size: cover;
+  font-family: "Lora Sans", sans-serif;
+  color: black;
+}
+.registerTitle {
+  font-size: 2.5rem;
+}
+.registerForm {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.registerForm > label {
+  margin: 1rem 0;
+}
+.registerInput {
+  padding: 0.5rem;
+  background-color: white;
+  border: none;
+}
+.regButton {
+  margin-top: 1rem;
+  cursor: pointer;
+  background-color: #e2df4c;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.loginButton {
+  position: absolute;
+  top: 160px;
+  right: 100px;
+  background-color: lightcoral;
+  color: black;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
