@@ -39,6 +39,10 @@
   padding: 0.5rem;
   cursor: pointer;
 }
+.logButton:disabled {
+  cursor: not-allowed;
+  background-color: rgb(233, 176, 176);
+}
 .registerButton {
   position: absolute;
   top: 160px;

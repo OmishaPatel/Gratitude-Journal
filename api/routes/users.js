@@ -9,7 +9,9 @@ const bcrypt = require("bcrypt");
 
 //Update User
 router.put("/:id", validateToken, async (req, res) => {
-  if (req.body.id === req.params.id) {
+  console.log(req.body.id === parseInt(req.params.id));
+
+  if (req.body.id === parseInt(req.params.id)) {
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
@@ -17,7 +19,9 @@ router.put("/:id", validateToken, async (req, res) => {
     try {
       await Users.update(req.body, {
         where: { id: req.params.id },
+        returning: true,
       });
+
       const updatedUser = await Users.findOne({ where: { id: req.params.id } });
       res.status(200).json(updatedUser);
     } catch (err) {
@@ -30,11 +34,12 @@ router.put("/:id", validateToken, async (req, res) => {
 
 // delete user
 router.delete("/:id", validateToken, async (req, res) => {
-  if (req.body.id === req.params.id) {
+  if (req.body.id === parseInt(req.params.id)) {
     try {
       const user = await Users.findOne({ where: { id: req.params.id } });
-      await Posts.destroy({ where: { username: user.username } });
+
       await user.destroy();
+      await Posts.destroy({ where: { username: req.body.username } });
       res.status(200).json("User has been deleted");
     } catch (err) {
       res.status(500).json(err);

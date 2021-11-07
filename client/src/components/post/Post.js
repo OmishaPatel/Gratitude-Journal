@@ -1,26 +1,30 @@
 import "./Post.css";
-export const Post = () => {
-  return (
-    <div className="post">
-      <img
-        className="postImg"
-        src="https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        alt=""
-      />
-      <div className="postInfo">
-        {/* <span className="postTitle">Lorem ipsum dolor.</span> */}
+import { Link } from "react-router-dom";
+export const Post = ({ post }) => {
+  const PF = "http://localhost:5000/images/";
 
-        <span className="postDate">Oct 20,2021</span>
+  return (
+    <Link to={`/post/${post.id}`} className="link">
+      <div className="post">
+        {post.photo ? (
+          <img className="postImg" src={PF + post.photo} alt="" />
+        ) : (
+          <img
+            className="postImg"
+            src={`https://source.unsplash.com/random?gratitude?inspiration?sig=${Math.random()}`}
+            alt=""
+          />
+        )}
+
+        <div className="postInfo">
+          {/* <span className="postTitle">Lorem ipsum dolor.</span> */}
+
+          <span className="postDate">
+            {new Date(post.createdAt).toDateString()}
+          </span>
+        </div>
+        <p className="postDesc">{post.desc}</p>
       </div>
-      <p className="postDesc">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, qui
-        recusandae officia aliquid rem magnam rerum voluptatem tenetur
-        dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis,
-        qui recusandae officia aliquid rem magnam rerum voluptatem teneturLorem
-        ipsum dolor sit amet consectetur adipisicing elit. Officiis, qui
-        recusandae officia aliquid rem magnam rerum voluptatem tenetur dolor.
-        dolor.
-      </p>
-    </div>
+    </Link>
   );
 };

@@ -12,7 +12,7 @@ const validateToken = (req, res, next) => {
       return next();
     }
   } catch (err) {
-    res.status(500).json({ error: err });
+    res.status(500).json("error in middleware");
   }
 };
 module.exports = { validateToken };

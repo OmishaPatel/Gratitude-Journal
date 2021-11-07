@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: true,
     }
   );
+
   User.sync();
   return User;
 };

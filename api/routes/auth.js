@@ -7,7 +7,18 @@ const { sign } = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 router.post("/register", async (req, res) => {
+  console.log(req.body);
   try {
+    try {
+      const validUser = await Users.findOne({
+        where: { username: req.body.username },
+      });
+
+      validUser && res.status(403).json("Username or Email already exists");
+    } catch (err) {
+      res.status(500).json(err);
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(req.body.password, salt);
     const user = await Users.create({

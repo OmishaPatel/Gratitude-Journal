@@ -4,3 +4,25 @@
   flex-wrap: wrap;
   margin: 1rem;
 }
+.paginationBtn {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+.paginationBtn a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  color: var(--text-color);
+  cursor: pointer;
+  background-color: var(--background-color);
+}
+.paginationBtn a:hover {
+  background-color: darkgray;
+}
+.paginationActive a {
+  background-color: rgb(233, 219, 219);
+}

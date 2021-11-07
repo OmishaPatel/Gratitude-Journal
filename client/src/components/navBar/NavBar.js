@@ -3,8 +3,16 @@ import logo from "../images/logo.png";
 import bio from "../images/bio.jpg";
 import { Theme } from "../theme/Theme";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 export const NavBar = () => {
-  const user = false;
+  const { user, dispatch } = useContext(Context);
+
+  const PF = "http://localhost:5000/images/";
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    window.location.replace("/");
+  };
   return (
     <div className="nav">
       <div className="topLeft">
@@ -27,12 +35,20 @@ export const NavBar = () => {
               WRITE
             </Link>
           </li>
-          <li className="topListItem">{user && "LOGOUT"}</li>
+          <li className="topListItem" onClick={handleLogout}>
+            {user && "LOGOUT"}
+          </li>
         </ul>
       </div>
       <div className="topRight">
         {user ? (
-          <img src={bio} className="topImg" alt="user-image" />
+          <Link to="/settings">
+            <img
+              src={PF + user.others.profilePicture}
+              className="topImg"
+              alt="user-image"
+            />
+          </Link>
         ) : (
           <ul className="topList">
             <li className="topListItem">
@@ -48,7 +64,6 @@ export const NavBar = () => {
           </ul>
         )}
 
-        <i className="topSearchIcon fas fa-search"></i>
         <Theme />
       </div>
     </div>

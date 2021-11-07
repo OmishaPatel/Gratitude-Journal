@@ -1,19 +1,54 @@
+import axios from "axios";
+import { Context } from "../../context/Context";
+import { useState, useContext } from "react";
 import "./Write.css";
 
 export const Write = () => {
+  const [desc, setDesc] = useState("");
+  const [file, setFile] = useState(null);
+  const { user } = useContext(Context);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newPost = {
+      username: user.others.username,
+      desc,
+    };
+    if (file) {
+      const data = new FormData();
+      const filename = Date.now() + file.name;
+      data.append("name", filename);
+      data.append("file", file);
+      newPost.photo = filename;
+      try {
+        await axios.post("http://localhost:5000/api/upload", data);
+      } catch (err) {}
+    }
+    try {
+      const res = await axios.post("http://localhost:5000/api/posts", newPost, {
+        headers: {
+          accessToken: user.accessToken,
+        },
+      });
+      window.location.replace("/post/" + res.data.id);
+    } catch (err) {}
+  };
   return (
     <div className="write">
-      <img
-        src="https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        alt=""
-        className="writeImg"
-      />
-      <form action="" className="writeForm">
+      {file && (
+        <img src={URL.createObjectURL(file)} alt="" className="writeImg" />
+      )}
+
+      <form onSubmit={handleSubmit} className="writeForm">
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
             <i className="far fa-image writeIcon"></i>
           </label>
-          <input type="file" id="fileInput" style={{ display: "none" }} />
+          <input
+            type="file"
+            id="fileInput"
+            style={{ display: "none" }}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
           {/* <input
             type="text"
             placeholder="Title"
@@ -27,8 +62,11 @@ export const Write = () => {
             type="text"
             className="writeInput writeText"
             style={{ resize: "none" }}
+            onChange={(e) => setDesc(e.target.value)}
           ></textarea>
-          <button className="writeSubmit">Save</button>
+          <button className="writeSubmit" type="submit">
+            Save
+          </button>
         </div>
       </form>
     </div>

@@ -6,7 +6,9 @@ const { Users } = require("../models");
 const { Posts } = require("../models");
 const { validateToken } = require("../middlewares/Authmiddleware");
 const bcrypt = require("bcrypt");
-
+const fastcsv = require("fast-csv");
+const fs = require("fs");
+const ws = fs.createWriteStream("gratitudejournal.csv");
 //CREATE POST
 router.post("/", validateToken, async (req, res) => {
   try {
@@ -18,7 +20,7 @@ router.post("/", validateToken, async (req, res) => {
 });
 
 //UPDATE POST
-router.put("/:id", validateToken, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const post = await Posts.findOne({ where: { id: req.params.id } });
     if (post.username === req.body.username) {
@@ -71,14 +73,35 @@ router.get("/:id", async (req, res) => {
 });
 
 //GET ALL POSTS
-router.get("/", validateToken, async (req, res) => {
+// router.get("/", validateToken, async (req, res) => {
+//   const username = req.query.user;
+//   try {
+//     const allPosts = await Posts.findAll({
+//       where: { username: username },
+//     });
+//     res.status(200).json(allPosts);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+router.get("/", async (req, res) => {
   const username = req.query.user;
+  const page = req.query.page;
+  const size = req.query.size;
   try {
-    const allPosts = await Posts.findAll({ where: { username } });
-    res.status(200).json(allPosts);
+    const allPosts = await Posts.findAndCountAll({
+      where: { username: username },
+      limit: size,
+      offset: (page - 1) * size,
+    });
+    res.status(200).json({
+      content: allPosts.rows,
+      totalPages: Math.ceil(allPosts.count / size),
+      page,
+      size,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
 module.exports = router;

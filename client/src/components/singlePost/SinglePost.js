@@ -1,32 +1,90 @@
+import { useLocation } from "react-router";
 import "./SinglePost.css";
-
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { Context } from "../../context/Context";
 export const SinglePost = () => {
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
+  const [post, setPost] = useState([]);
+  const { user } = useContext(Context);
+  const [desc, setDesc] = useState("");
+  const [update, setUpdate] = useState(false);
+  const PF = "http://localhost:5000/images/";
+  useEffect(() => {
+    const getSinglePost = async () => {
+      const res = await axios.get("http://localhost:5000/api/posts/" + path);
+      setPost(res.data);
+      setDesc(res.data.desc);
+    };
+    getSinglePost();
+  }, [path]);
+  const handleDelete = async () => {
+    try {
+      const res = await axios.delete(
+        "http://localhost:5000/api/posts/" + path,
+        {
+          headers: {
+            accessToken: user.accessToken,
+          },
+          data: {
+            username: user.others.username,
+          },
+        }
+      );
+
+      window.location.replace("/");
+    } catch (err) {}
+  };
+
+  const handleUpdate = async () => {
+    try {
+      await axios.put("http://localhost:5000/api/posts/" + path, {
+        username: user.others.username,
+        desc,
+      });
+      setUpdate(false);
+      console.log("handle update");
+    } catch (err) {}
+  };
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img
-          src="https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-          alt=""
-          className="singlePostImg"
-        />
+        {post.photo && (
+          <img src={PF + post.photo} alt="" className="singlePostImg" />
+        )}
         {/* <h1 className="singlePostTitle">
           Lorem ipsum dolor sit amet. */}
         <div className="singlePostEdit">
-          <i className="far fa-edit singlePostIcon"></i>
-          <i className="far fa-trash-alt singlePostIcon"></i>
+          <i
+            className="far fa-edit singlePostIcon"
+            onClick={() => setUpdate(true)}
+          ></i>
+          <i
+            className="far fa-trash-alt singlePostIcon"
+            onClick={handleDelete}
+          ></i>
         </div>
         {/* </h1> */}
         <div className="singlePostInfo">
-          <span className="singlePostDate">Oct 20, 2021</span>
+          <span className="singlePostDate">
+            {new Date(post.createdAt).toDateString()}
+          </span>
         </div>
-        <p className="singlePostDesc">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-          vitae harum, minima nulla, hic dolorum at inventore consequuntur, iste
-          eos ipsum. Porro ipsum quasi assumenda deserunt, alias tenetur ad!
-          Odio aperiam praesentium non et at nulla dolorum optio, repellat
-          dolore magni distinctio explicabo, error sint? Id quod voluptates
-          voluptatem laboriosam?
-        </p>
+        {update ? (
+          <textarea
+            className="singlePostDescInput"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+          />
+        ) : (
+          <p className="singlePostDesc">{desc}</p>
+        )}
+        {update && (
+          <button className="singlePostButton" onClick={handleUpdate}>
+            Update
+          </button>
+        )}
       </div>
     </div>
   );
