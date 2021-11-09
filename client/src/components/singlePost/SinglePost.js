@@ -58,8 +58,7 @@ export const SinglePost = () => {
         {post.photo && (
           <img src={PF + post.photo} alt="" className="singlePostImg" />
         )}
-        {/* <h1 className="singlePostTitle">
-          Lorem ipsum dolor sit amet. */}
+
         <div className="singlePostEdit">
           <i
             className="far fa-edit singlePostIcon"
@@ -70,7 +69,7 @@ export const SinglePost = () => {
             onClick={handleDelete}
           ></i>
         </div>
-        {/* </h1> */}
+
         <div className="singlePostInfo">
           <span className="singlePostDate">
             {new Date(post.createdAt).toDateString()}

@@ -11,9 +11,7 @@ export const Register = () => {
     email: "",
     password: "",
   };
-  // const [username, setUsername] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+
   const [error, setError] = useState(false);
   const [registering, setRegistering] = useState(false);
 
@@ -43,31 +41,6 @@ export const Register = () => {
       setError(true);
       window.location.replace("/register");
     }
-    // e.preventDefault();
-    // let formData = {
-    //   username: username,
-    //   email: email,
-    //   password: password,
-    // };
-    // const isValid = await validationSchema.isValid(formData);
-    // if (isValid) {
-    //   setError(false);
-    //   try {
-    //     const res = await axios.post(
-    //       "http://localhost:5000/api/auth/register",
-    //       {
-    //         username,
-    //         email,
-    //         password,
-    //       }
-    //     );
-    //     res.data && window.location.replace("/login");
-    //   } catch {
-    //     setError(true);
-    //   }
-    // } else {
-    //   setError(true);
-    // }
   };
 
   return (
@@ -85,12 +58,7 @@ export const Register = () => {
             component="span"
             style={{ color: "#1E1E01", paddingBottom: "10px" }}
           />
-          {/* <input
-          type="text"
-          placeholder="Enter your username"
-          className="registerInput"
-          onChange={(e) => setUsername(e.target.value)}
-        /> */}
+
           <Field
             autoComplete="off"
             className="registerInput"
@@ -109,12 +77,7 @@ export const Register = () => {
             name="email"
             placeholder="john@gmail.com..."
           />
-          {/* <input
-          type="email"
-          placeholder="Enter your email"
-          className="registerInput"
-          onChange={(e) => setEmail(e.target.value)}
-        /> */}
+
           <label>Password</label>
           <ErrorMessage
             name="password"
@@ -127,12 +90,7 @@ export const Register = () => {
             name="password"
             placeholder="Your password..."
           />
-          {/* <input
-          type="password"
-          placeholder="Enter your password"
-          className="registerInput"
-          onChange={(e) => setPassword(e.target.value)}
-        /> */}
+
           <button className="regButton" type="submit" disabled={registering}>
             <Link className="link" to="/register">
               Register

@@ -3,7 +3,6 @@ import { Context } from "../../context/Context";
 import "./Settings.css";
 import axios from "axios";
 import { useContext, useState } from "react";
-import logo from "../../components/images/logo.png";
 
 export const Settings = () => {
   const { user, dispatch } = useContext(Context);
@@ -29,7 +28,7 @@ export const Settings = () => {
       document.body.appendChild(link);
       link.click();
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   };
 
@@ -73,10 +72,7 @@ export const Settings = () => {
       dispatch({ type: "UPDATE_FAILURE" });
     }
   };
-  const deleteData = {
-    id: user.others.id,
-    username: user.others.username,
-  };
+
   const handleDelete = async () => {
     alert("Are you sure you want to delete your account?");
     try {
@@ -103,7 +99,7 @@ export const Settings = () => {
         window.location.replace("/");
       }, 2000);
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   };
   return (

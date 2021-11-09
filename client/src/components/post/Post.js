@@ -17,8 +17,6 @@ export const Post = ({ post }) => {
         )}
 
         <div className="postInfo">
-          {/* <span className="postTitle">Lorem ipsum dolor.</span> */}
-
           <span className="postDate">
             {new Date(post.createdAt).toDateString()}
           </span>

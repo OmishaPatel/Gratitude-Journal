@@ -20,9 +20,9 @@ export const Sidebar = () => {
   useEffect(() => {
     fetchQuote();
   }, []);
-  // if (loading) {
-  //   return <Loading />;
-  // }
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className="sidebar">
       <div className="sidebarItem">
@@ -36,7 +36,6 @@ export const Sidebar = () => {
         <figcaption className="quoteAuthor">
           &mdash; {quote.author},{" "}
           <cite>
-            {" "}
             <a href="https://theysaidso.com" className="quoteLink">
               They Said So
             </a>

@@ -1,6 +1,6 @@
 import "./NavBar.css";
 import logo from "../images/logo.png";
-import bio from "../images/bio.jpg";
+
 import { Theme } from "../theme/Theme";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
