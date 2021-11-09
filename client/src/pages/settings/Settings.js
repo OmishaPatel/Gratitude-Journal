@@ -13,12 +13,13 @@ export const Settings = () => {
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
   const [deleteacc, setDeleteacc] = useState(false);
-  const PF = "http://localhost:5000/images/";
+  const PF = "https://omi-gratitude-journal.herokuapp.com/images/";
   console.log(user.others.id);
   const handleData = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/data/?user=" + user.others.username
+        "https://omi-gratitude-journal.herokuapp.com/api/data/?user=" +
+          user.others.username
       );
 
       const url = window.URL.createObjectURL(new Blob([res.data]));
@@ -47,12 +48,16 @@ export const Settings = () => {
       data.append("file", file);
       updatedUser.profilePicture = filename;
       try {
-        await axios.post("http://localhost:5000/api/upload", data);
+        await axios.post(
+          "https://omi-gratitude-journal.herokuapp.com/api/upload",
+          data
+        );
       } catch (err) {}
     }
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/users/" + user.others.id,
+        "https://omi-gratitude-journal.herokuapp.com/api/users/" +
+          user.others.id,
         updatedUser,
         {
           headers: {
@@ -76,7 +81,8 @@ export const Settings = () => {
     alert("Are you sure you want to delete your account?");
     try {
       await axios.delete(
-        "http://localhost:5000/api/users/" + user.others.id,
+        "https://omi-gratitude-journal.herokuapp.com/api/users/" +
+          user.others.id,
 
         {
           headers: {

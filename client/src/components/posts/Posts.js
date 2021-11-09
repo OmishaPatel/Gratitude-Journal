@@ -17,7 +17,7 @@ export const Posts = () => {
       setLoading(true);
       const size = 6;
       const response = await axios.get(
-        `http://localhost:5000/api/posts/?user=${user.others.username}&page=${pageNum}&size=${size}`,
+        `https://omi-gratitude-journal.herokuapp.com/api/posts/?user=${user.others.username}&page=${pageNum}&size=${size}`,
         {
           headers: {
             accessToken: user.accessToken,
@@ -62,7 +62,14 @@ export const Posts = () => {
         </>
       );
     } else {
-      return "No posts to display click on write to start writing journal";
+      return (
+        <div className="noPosts">
+          <p className="noPostsPara">
+            "No Posts to display, please click on write tab to start writing
+            your gratitude journal"
+          </p>
+        </div>
+      );
     }
   } else {
     return <Default />;

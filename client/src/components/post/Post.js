@@ -1,7 +1,7 @@
 import "./Post.css";
 import { Link } from "react-router-dom";
 export const Post = ({ post }) => {
-  const PF = "http://localhost:5000/images/";
+  const PF = "https://omi-gratitude-journal.herokuapp.com/images/";
 
   return (
     <Link to={`/post/${post.id}`} className="link">

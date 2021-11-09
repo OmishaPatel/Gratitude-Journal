@@ -5,12 +5,14 @@ import { Posts } from "../../components/posts/Posts";
 import { Sidebar } from "../../components/sidebar/Sidebar";
 import { useContext } from "react";
 import { Context } from "../../context/Context";
+import { NavBar } from "../../components/navBar/NavBar";
 
 export const Home = () => {
   const { user } = useContext(Context);
   return (
     <>
       <Header />
+
       <div className="home">
         {user != null && <Posts />}
 

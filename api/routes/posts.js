@@ -2,13 +2,10 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
 const router = express.Router();
-const { Users } = require("../models");
+
 const { Posts } = require("../models");
 const { validateToken } = require("../middlewares/Authmiddleware");
-const bcrypt = require("bcrypt");
-const fastcsv = require("fast-csv");
-const fs = require("fs");
-const ws = fs.createWriteStream("gratitudejournal.csv");
+
 //CREATE POST
 router.post("/", validateToken, async (req, res) => {
   try {
@@ -72,18 +69,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//GET ALL POSTS
-// router.get("/", validateToken, async (req, res) => {
-//   const username = req.query.user;
-//   try {
-//     const allPosts = await Posts.findAll({
-//       where: { username: username },
-//     });
-//     res.status(200).json(allPosts);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 router.get("/", async (req, res) => {
   const username = req.query.user;
   const page = req.query.page;

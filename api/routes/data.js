@@ -17,13 +17,9 @@ router.get("/", async (req, res) => {
       attributes: { exclude: ["id", "username", "updatedAt"] },
     });
     const data = JSON.parse(JSON.stringify(allPosts));
-    console.log(data);
-    // const ws = fs.createWriteStream("./files/gratitudejournal.csv");
+
     fastcsv
       .write(data, { headers: true })
-      //   .on("finish", function () {
-      //     res.download("./files/gratitudejournal.csv");
-      //   })
 
       .pipe(res);
   } catch (err) {

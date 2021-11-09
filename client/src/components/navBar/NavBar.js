@@ -7,8 +7,8 @@ import { useContext } from "react";
 import { Context } from "../../context/Context";
 export const NavBar = () => {
   const { user, dispatch } = useContext(Context);
-
-  const PF = "http://localhost:5000/images/";
+  console.log(user);
+  const PF = "https://omi-gratitude-journal.herokuapp.com/images/";
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
     window.location.replace("/");
@@ -41,13 +41,17 @@ export const NavBar = () => {
         </ul>
       </div>
       <div className="topRight">
-        {user ? (
+        {user != null ? (
           <Link to="/settings">
-            <img
-              src={PF + user.others.profilePicture}
-              className="topImg"
-              alt="user-image"
-            />
+            {user.others.profilePicture ? (
+              <img
+                src={PF + user.others.profilePicture}
+                className="topImg"
+                alt="user-image"
+              />
+            ) : (
+              <i className="far fa-user defaultImg"></i>
+            )}
           </Link>
         ) : (
           <ul className="topList">

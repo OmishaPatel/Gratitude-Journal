@@ -10,10 +10,12 @@ export const SinglePost = () => {
   const { user } = useContext(Context);
   const [desc, setDesc] = useState("");
   const [update, setUpdate] = useState(false);
-  const PF = "http://localhost:5000/images/";
+  const PF = "https://omi-gratitude-journal.herokuapp.com/images/";
   useEffect(() => {
     const getSinglePost = async () => {
-      const res = await axios.get("http://localhost:5000/api/posts/" + path);
+      const res = await axios.get(
+        "https://omi-gratitude-journal.herokuapp.com/api/posts/" + path
+      );
       setPost(res.data);
       setDesc(res.data.desc);
     };
@@ -22,7 +24,7 @@ export const SinglePost = () => {
   const handleDelete = async () => {
     try {
       const res = await axios.delete(
-        "http://localhost:5000/api/posts/" + path,
+        "https://omi-gratitude-journal.herokuapp.com/api/posts/" + path,
         {
           headers: {
             accessToken: user.accessToken,
@@ -39,10 +41,13 @@ export const SinglePost = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put("http://localhost:5000/api/posts/" + path, {
-        username: user.others.username,
-        desc,
-      });
+      await axios.put(
+        "https://omi-gratitude-journal.herokuapp.com/api/posts/" + path,
+        {
+          username: user.others.username,
+          desc,
+        }
+      );
       setUpdate(false);
       console.log("handle update");
     } catch (err) {}

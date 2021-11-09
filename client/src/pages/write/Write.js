@@ -20,15 +20,22 @@ export const Write = () => {
       data.append("file", file);
       newPost.photo = filename;
       try {
-        await axios.post("http://localhost:5000/api/upload", data);
+        await axios.post(
+          "https://omi-gratitude-journal.herokuapp.com/api/upload",
+          data
+        );
       } catch (err) {}
     }
     try {
-      const res = await axios.post("http://localhost:5000/api/posts", newPost, {
-        headers: {
-          accessToken: user.accessToken,
-        },
-      });
+      const res = await axios.post(
+        "https://omi-gratitude-journal.herokuapp.com/api/posts",
+        newPost,
+        {
+          headers: {
+            accessToken: user.accessToken,
+          },
+        }
+      );
       window.location.replace("/post/" + res.data.id);
     } catch (err) {}
   };

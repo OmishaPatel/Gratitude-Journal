@@ -26,3 +26,14 @@
 .paginationActive a {
   background-color: rgb(233, 219, 219);
 }
+.noPosts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.noPostsPara {
+  margin: 2rem;
+  font-size: 1.6rem;
+  width: 70%;
+  text-align: center;
+}

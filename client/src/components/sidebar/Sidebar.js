@@ -20,9 +20,9 @@ export const Sidebar = () => {
   useEffect(() => {
     fetchQuote();
   }, []);
-  if (loading) {
-    return <Loading />;
-  }
+  // if (loading) {
+  //   return <Loading />;
+  // }
   return (
     <div className="sidebar">
       <div className="sidebarItem">

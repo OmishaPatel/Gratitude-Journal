@@ -9,8 +9,6 @@ const bcrypt = require("bcrypt");
 
 //Update User
 router.put("/:id", validateToken, async (req, res) => {
-  console.log(req.body.id === parseInt(req.params.id));
-
   if (req.body.id === parseInt(req.params.id)) {
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);

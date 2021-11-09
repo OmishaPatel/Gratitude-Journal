@@ -7,7 +7,6 @@ const { sign } = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 router.post("/register", async (req, res) => {
-  console.log(req.body);
   try {
     try {
       const validUser = await Users.findOne({
@@ -38,16 +37,18 @@ router.post("/login", async (req, res) => {
     const user = await Users.findOne({
       where: { username: req.body.username },
     });
-    !user && res.status(400).json("Wrong email or password");
-
-    const validate = await bcrypt.compare(req.body.password, user.password);
-    !validate && res.status(400).json("Wrong email or passowrd");
-    const accessToken = sign(
-      { username: user.username, id: user.id },
-      process.env.ACCESS_TOKEN
-    );
-    const { password, ...others } = user.dataValues;
-    res.status(200).json({ others, accessToken: accessToken });
+    if (user) {
+      const validate = await bcrypt.compare(req.body.password, user.password);
+      !validate && res.status(400).json("Wrong email or passowrd");
+      const accessToken = sign(
+        { username: user.username, id: user.id },
+        process.env.ACCESS_TOKEN
+      );
+      const { password, ...others } = user.dataValues;
+      res.status(200).json({ others, accessToken: accessToken });
+    } else {
+      res.status(400).json("Wrong email or password");
+    }
   } catch (err) {
     res.status(500).json(err);
   }

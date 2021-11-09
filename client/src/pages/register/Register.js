@@ -33,7 +33,7 @@ export const Register = () => {
       setRegistering(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://omi-gratitude-journal.herokuapp.com/api/auth/register",
         data
       );
       setRegistering(false);
