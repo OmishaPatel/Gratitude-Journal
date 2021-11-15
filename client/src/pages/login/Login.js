@@ -3,14 +3,16 @@ import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import axios from "axios";
 import { useContext, useRef, useState } from "react";
+import { Spinner } from "../../components/loader/Spinner";
 export const Login = () => {
   const [error, setError] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const userRef = useRef();
   const passwordRef = useRef();
   const { dispatch, isFetching } = useContext(Context);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post(
@@ -21,13 +23,17 @@ export const Login = () => {
         }
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      setLoading(false);
       window.location.replace("/");
     } catch (err) {
       setError(true);
+      setLoading(false);
       dispatch({ type: "LOGIN_FAILURE" });
     }
   };
-
+  if (loading) {
+    return <Spinner />;
+  }
   return (
     <div className="login">
       <span className="loginTitle">Login</span>

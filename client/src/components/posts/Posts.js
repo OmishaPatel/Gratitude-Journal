@@ -5,7 +5,7 @@ import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 import { Context } from "../../context/Context";
 import ReactPaginate from "react-paginate";
-import { Loading } from "../loader/Loading";
+import { Spinner } from "../loader/Spinner";
 export const Posts = () => {
   const { user } = useContext(Context);
   const [posts, setPosts] = useState([]);
@@ -36,7 +36,7 @@ export const Posts = () => {
     setPageNum(selected + 1);
   };
   if (loading) {
-    return <Loading />;
+    return <Spinner />;
   }
   if (user != null) {
     if (posts.length > 0) {

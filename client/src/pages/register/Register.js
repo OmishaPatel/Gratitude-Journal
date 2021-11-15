@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
+import { Spinner } from "../../components/loader/Spinner";
 export const Register = () => {
   const initialValues = {
     username: "",
@@ -13,7 +13,8 @@ export const Register = () => {
   };
 
   const [error, setError] = useState(false);
-  const [registering, setRegistering] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     username: Yup.string()
@@ -26,19 +27,23 @@ export const Register = () => {
       .max(20)
       .required("Password should be between 4 to 20 characters long"),
   });
+  if (loading) {
+    return <Spinner />;
+  }
   const handleSubmit = async (data) => {
     try {
-      setRegistering(true);
+      setLoading(true);
 
       const res = await axios.post(
         "https://omi-gratitude-journal.herokuapp.com/api/auth/register",
         data
       );
-      setRegistering(false);
-      setError(false);
+      setLoading(false);
+
       window.location.replace("/login");
     } catch (err) {
       setError(true);
+      setLoading(false);
       window.location.replace("/register");
     }
   };
@@ -90,14 +95,14 @@ export const Register = () => {
             name="password"
             placeholder="Your password..."
           />
-
-          <button className="regButton" type="submit" disabled={registering}>
+          <button className="regButton" type="submit" disabled={loading}>
             <Link className="link" to="/register">
               Register
             </Link>
           </button>
         </Form>
       </Formik>
+
       <button className="loginButton">
         <Link className="link" to="/login">
           Login

@@ -1,0 +1,54 @@
+.info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin: 2rem;
+}
+.question1 {
+  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-weight: 200;
+}
+.question2,
+.question3,
+.question4 {
+  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-weight: 200;
+  margin-top: 1.2rem;
+}
+.question1para,
+.question2para {
+  width: 60%;
+  font-size: 1.2rem;
+  padding-top: 0.8rem;
+  line-height: 1.4;
+}
+.question1para::first-letter,
+.question2para::first-letter {
+  font-style: bold;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.question1cite {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.info ul {
+  margin-top: 1rem;
+  margin-right: 6.5rem;
+}
+.info li {
+  list-style: none;
+  margin-top: 0.3rem;
+  font-size: 1.2rem;
+}
+.listitem::first-letter {
+  font-style: bold;
+  font-size: 1.4rem;
+  font-weight: 700;
+}

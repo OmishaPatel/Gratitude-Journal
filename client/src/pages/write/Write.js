@@ -2,13 +2,16 @@ import axios from "axios";
 import { Context } from "../../context/Context";
 import { useState, useContext } from "react";
 import "./Write.css";
-
+import { Spinner } from "../../components/loader/Spinner";
 export const Write = () => {
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { user } = useContext(Context);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const newPost = {
       username: user.others.username,
       desc,
@@ -36,9 +39,13 @@ export const Write = () => {
           },
         }
       );
+      setLoading(false);
       window.location.replace("/post/" + res.data.id);
     } catch (err) {}
   };
+  if (loading) {
+    return <Spinner />;
+  }
   return (
     <div className="write">
       {file && (
